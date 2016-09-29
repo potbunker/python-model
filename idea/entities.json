@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Idea",
+    "type": "entity",
+    "properties": [
+      {
+        "name": "id",
+        "type": "str"
+      },
+      {
+        "name": "uuid",
+        "type": "int"
+      },
+      {
+        "name": "concept",
+        "type": "Concept"
+      }
+    ]
+  }
+]

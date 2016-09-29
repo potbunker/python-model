@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Concept",
+    "type": "enum",
+    "values": [
+      "New_Issue",
+      "Maintenance_Update"
+    ]
+  }
+]
