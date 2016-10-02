@@ -1,8 +1,16 @@
 from abc import abstractmethod, ABCMeta
 
 
+class DescriptorMeta(ABCMeta):
+    def __new__(meta, name, bases, class_dict):
+
+        cls = super(DescriptorMeta, meta).__new__(meta, name, bases, class_dict)
+
+        return cls
+
+
 class BaseDescriptor(object):
-    __metaclass__ = ABCMeta
+    __metaclass__ = DescriptorMeta
 
     def __init__(self, name, cls):
         self.name = name
@@ -19,13 +27,9 @@ class BaseDescriptor(object):
         assert isinstance(value, self.cls), '{} must be of type {}: {}.'.format(self.name, self.cls, value)
 
 
-
-class StringDescriptor(BaseDescriptor):
-    pass
-
-
-class IntDescriptor(BaseDescriptor):
-    pass
+class EnumDescriptor(BaseDescriptor):
+    def _validate(self, value):
+        pass
 
 
 class ObjectDescriptor(BaseDescriptor):
@@ -33,6 +37,7 @@ class ObjectDescriptor(BaseDescriptor):
 
 
 class SequenceDescriptor(BaseDescriptor):
+
     def __init__(self, name, item_cls):
         super(SequenceDescriptor, self).__init__(name, (list, set, tuple))
         self.item_cls = item_cls
@@ -41,4 +46,5 @@ class SequenceDescriptor(BaseDescriptor):
         super(SequenceDescriptor, self)._validate(value),
         assert all(map(lambda x: isinstance(x, self.item_cls), value)), \
             '{} must be of a {} of {}.'.format(self.name, self.cls, self.item_cls)
+
 

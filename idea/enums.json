@@ -1,10 +1,20 @@
 [
   {
+    "package": "deck",
     "name": "Concept",
     "type": "enum",
     "values": [
-      "New_Issue",
-      "Maintenance_Update"
+      {"name": "New_Issue", "id": 1},
+      {"name": "Maintenance_Update", "id": 2}
+    ]
+  },
+  {
+    "package": "deck",
+    "name": "Region",
+    "type": "enum",
+    "values": [
+      {"name": "Global", "id": 1},
+      {"name": "North_America", "id": 2}
     ]
   }
 ]
