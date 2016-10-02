@@ -1,7 +1,23 @@
 [
   {
+    "package": "idea",
+    "name": "Person",
+    "type": "object",
+    "properties": [
+      {
+        "name": "uuid",
+        "type": "int"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      }
+    ]
+  },
+  {
+    "package": "idea",
     "name": "Idea",
-    "type": "entity",
+    "type": "object",
     "properties": [
       {
         "name": "id",
@@ -13,7 +29,18 @@
       },
       {
         "name": "concept",
-        "type": "Concept"
+        "type": "idea.Concept"
+      },
+      {
+        "name": "analyst",
+        "type": "idea.Person"
+      },
+      {
+        "name": "users",
+        "type": {
+          "type": "list",
+          "item": "idea.Person"
+        }
       }
     ]
   }
