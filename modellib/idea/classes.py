@@ -1,6 +1,12 @@
-from descriptors import *
-from enum import Enum, EnumMeta
+import logging
 from itertools import chain
+
+from enum import Enum, EnumMeta
+
+from descriptors import *
+from modellib.decorator import logged, log_methods
+
+logger = logging.getLogger(__name__)
 
 
 class Region(Enum):
@@ -8,7 +14,16 @@ class Region(Enum):
     North_America = 2
 
 
+class ObjectMeta(type):
+    def __new__(meta, name, bases, class_dict):
+
+        cls = super(ObjectMeta, meta).__new__(meta, name, bases, class_dict)
+
+        return log_methods(cls)
+
+
 class BaseObject(object):
+    __metaclass__ = ObjectMeta
 
     def __init__(self, dict={}):
         for key, value in dict.iteritems():
@@ -33,12 +48,6 @@ class Idea(BaseObject):
     analyst = ObjectDescriptor('analyst', Person)
     region = ObjectDescriptor('region', Region)
     others = SequenceDescriptor('others', Person)
-
-
-class ObjectMeta(type):
-    def __new__(meta, name, bases, class_dict):
-
-        return super(ObjectMeta, meta).__new__(meta, name, bases, class_dict)
 
 
 class BaseEnum(Enum):

@@ -1,4 +1,9 @@
 from abc import abstractmethod, ABCMeta
+from modellib.decorator import logged, log_methods
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class DescriptorMeta(ABCMeta):
@@ -6,7 +11,7 @@ class DescriptorMeta(ABCMeta):
 
         cls = super(DescriptorMeta, meta).__new__(meta, name, bases, class_dict)
 
-        return cls
+        return log_methods(cls)
 
 
 class BaseDescriptor(object):
